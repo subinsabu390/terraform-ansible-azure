@@ -1,0 +1,13 @@
+lb_ip_name = ""
+rg_name = ""
+lb_name = ""
+rg_location = ""
+vmss_name = ""
+machine_size = ""
+instances_number = 2
+admin_username = ""
+nic_name = ""
+vnet_name = ""
+subnet_name = ""
+key_vault_name = ""
+kv_secret_name = ""
