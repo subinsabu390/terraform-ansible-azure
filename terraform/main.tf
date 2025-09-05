@@ -39,6 +39,7 @@ module "create_lb" {
     lb_location = module.create_rg.rg_location
     rg_name = module.create_rg.rg_name
     public_ip_address_id = module.create_ip.lb_ip
+    nat_rule_name = var.nat_rule_name
 
     depends_on = [ module.create_ip ]
 }

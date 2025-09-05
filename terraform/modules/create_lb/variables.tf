@@ -13,3 +13,7 @@ variable "rg_name" {
 variable "public_ip_address_id" {
     
 }
+
+variable "nat_rule_name" {
+  
+}

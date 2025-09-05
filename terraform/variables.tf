@@ -49,3 +49,7 @@ variable "key_vault_name" {
 variable "kv_secret_name" {
   
 }
+
+variable "nat_rule_name" {
+  
+}
