@@ -1,0 +1,8 @@
+---
+- name: Configure webservers
+  hosts: webservers
+  become: true
+  connection: local
+  
+  roles:
+  - name: configure_nginx

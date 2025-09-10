@@ -1,0 +1,12 @@
+# roles/configure_nginx/tasks/destroy.yml
+- name: Remove nginx
+  apt:
+    name: nginx
+    state: absent
+  become: true
+
+- name: Remove index.html
+  file:
+    path: /usr/share/nginx/html/index.html
+    state: absent
+

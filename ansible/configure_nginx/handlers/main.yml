@@ -1,0 +1,12 @@
+---
+# handlers file for configure_nginx
+- name: Restarted nginx service
+  service:
+    name: nginx
+    state: restarted
+    
+- name: Wait for nginx
+  wait_for:
+    port: 80
+    delay: 5
+    timeout: 30

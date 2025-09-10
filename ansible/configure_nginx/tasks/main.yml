@@ -1,0 +1,17 @@
+---
+- name: Configure nginx on servers
+  apt:
+    name: nginx
+    state: present
+    
+- name: Copy index.html
+  copy:
+    src: index.html
+    dest: /usr/share/nginx/html/index.html
+  notify:
+  - Restarted nginx service
+  - Wait for nginx
+  
+- name: Print message
+  debug: 
+    msg: "debug"
