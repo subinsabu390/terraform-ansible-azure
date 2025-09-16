@@ -53,3 +53,15 @@ variable "kv_secret_name" {
 variable "nat_rule_name" {
   
 }
+
+variable "nsg_name" {
+  
+}
+
+variable "rule_name" {
+  
+}
+
+variable "source_address_prefix" {
+  
+}

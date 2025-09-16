@@ -63,3 +63,15 @@ module "create_vmss" {
 
     depends_on = [ module.create_lb ]
 }
+
+module "create_nsg" {
+    source = "./modules/create_nsg"
+    rg_name = module.create_rg.rg_name
+    nsg_name = var.nsg_name
+    nsg_location = module.create_rg.rg_location
+    source_address_prefix = var.source_address_prefix
+    subnet_id = module.create_vnet.subnet_id
+    rule_name = var.rule_name 
+
+    depends_on = [ module.create_vnet ]
+}
