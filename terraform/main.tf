@@ -75,3 +75,14 @@ module "create_nsg" {
 
     depends_on = [ module.create_vnet ]
 }
+
+module "create_ansible_inventory" {
+    source = "./modules/create_ansible_inventory"
+    port_start = module.create_lb.frontend_port_start
+    lb_ip = module.create_ip.ip_address
+    instance_count = var.instances_number
+    ansible_user = var.admin_username
+    ansible_private_key_path = var.ansible_private_key_path
+
+    depends_on = [ module.create_vmss ]
+}

@@ -65,3 +65,7 @@ variable "rule_name" {
 variable "source_address_prefix" {
   
 }
+
+variable "ansible_private_key_path" {
+  
+}
