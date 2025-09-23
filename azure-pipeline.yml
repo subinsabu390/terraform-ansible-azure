@@ -1,0 +1,64 @@
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+  terraformWorkingDirectory: 'terraform'
+  ansiblePlaybookPath: 'ansible/main.yaml'
+
+stages:
+  - stage: Terraform
+    displayName: 'Terraform Stage'
+    jobs:
+      - job: Terraform
+        displayName: 'Run Terraform'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - checkout: self
+
+          # Install Terraform
+          - task: TerraformInstaller@1
+            inputs:
+              terraformVersion: '1.6.0'
+
+          # Initialize Terraform
+          - script: |
+              cd $(terraformWorkingDirectory)
+              terraform init
+            displayName: 'Terraform Init'
+
+          # Plan Terraform
+          - script: |
+              cd $(terraformWorkingDirectory)
+              terraform plan -out=tfplan
+            displayName: 'Terraform Plan'
+
+          # Apply Terraform
+          - script: |
+              cd $(terraformWorkingDirectory)
+              terraform apply -auto-approve tfplan
+            displayName: 'Terraform Apply'
+
+  - stage: Ansible
+    displayName: 'Ansible Stage'
+    dependsOn: Terraform
+    jobs:
+      - job: Ansible
+        displayName: 'Run Ansible Playbook'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - checkout: self
+
+          # Install Ansible
+          - script: |
+              sudo apt-get update
+              sudo apt-get install -y ansible
+            displayName: 'Install Ansible'
+
+          # Run Ansible Playbook
+          - script: |
+              ansible-playbook $(ansiblePlaybookPath) -i inventory.ini
+            displayName: 'Execute Ansible Playbook'
